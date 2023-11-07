@@ -19,15 +19,26 @@
             the value should be the isbn
             and the displayed text should be Title: <bookTitle>, Genre:<genre>, Year: <year> -->
 
-    <ul>
-        <li th:each="book : ${books}">
-            <input type="radio" name="bookIsbn" th:value="${book.isbn}">
-            Title: <span th:text="${book.title}"></span>,
-            Genre: <span th:text="${book.genre}"></span>,
-            Year: <span th:text="${book.year}"></span><br/>
-        </li>
-    </ul>
-    <input type="submit" value="Submit">
+    <form th:method="POST" th:action="@{/listBooks}">
+        <ul>
+            <li th:each="book : ${books}">
+                <input type="radio" name="bookIsbn" th:value="${book.isbn}">
+                Title: <span th:text="${book.title}"></span>,
+                Genre: <span th:text="${book.genre}"></span>,
+                Year: <span th:text="${book.year}"></span><br/>
+            </li>
+        </ul>
+        <input type="submit" value="Submit">
+    </form>
+<!--    <ul>-->
+<!--        <li th:each="book : ${books}">-->
+<!--            <input type="radio" name="bookIsbn" th:value="${book.isbn}">-->
+<!--            Title: <span th:text="${book.title}"></span>,-->
+<!--            Genre: <span th:text="${book.genre}"></span>,-->
+<!--            Year: <span th:text="${book.year}"></span><br/>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    <input type="submit" value="Submit">-->
 
 
 

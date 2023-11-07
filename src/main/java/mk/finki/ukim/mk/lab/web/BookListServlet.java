@@ -37,4 +37,13 @@ public class BookListServlet extends HttpServlet {
         this.springTemplateEngine.process("listBooks.html", context, resp.getWriter());
 
     }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String isbn = req.getParameter("isbn");
+        bookService.findBookByIsbn(isbn);   // nee sigurno
+
+        resp.sendRedirect("/author");
+    }
 }

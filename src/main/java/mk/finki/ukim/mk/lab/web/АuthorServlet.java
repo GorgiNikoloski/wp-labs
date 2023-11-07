@@ -35,6 +35,8 @@ public class АuthorServlet extends HttpServlet {
 
         context.setVariable("authors", this.authorService.listAuthor());
 
+        String isbn = req.getParameter("isbn");     // nee sigurno
+
         this.springTemplateEngine.process("authorList.html", context, resp.getWriter());
 
     }
@@ -42,5 +44,6 @@ public class АuthorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        resp.sendRedirect("/author/books");
     }
 }
