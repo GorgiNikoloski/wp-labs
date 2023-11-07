@@ -15,7 +15,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 import java.io.IOException;
 
 
-@WebServlet(name = "author", urlPatterns = "/author")
+@WebServlet(name = "author-servlet", urlPatterns = "/author")
 public class АuthorServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
@@ -43,7 +43,6 @@ public class АuthorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         resp.sendRedirect("/author/books");
     }
 }

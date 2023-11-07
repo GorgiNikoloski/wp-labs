@@ -15,7 +15,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 import java.io.IOException;
 
 
-@WebServlet(name = "book", urlPatterns = "/listBooks")
+@WebServlet(name = "book-list-servlelt", urlPatterns = "/listBooks")
 public class BookListServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
@@ -41,9 +41,10 @@ public class BookListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String isbn = req.getParameter("isbn");
-        bookService.findBookByIsbn(isbn);   // nee sigurno
+        String isbn = req.getParameter("bookIsbn");
+//        bookService.findBookByIsbn(isbn);   // nee sigurno
 
-        resp.sendRedirect("/author");
+
+        resp.sendRedirect("/author?isbn=" +isbn);
     }
 }

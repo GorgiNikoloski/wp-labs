@@ -26,11 +26,11 @@ public class DataHolder {
         authors.add(new Author(22222L, "Martina", "Dimitrova", "Ne mnogu dobra"));
         authors.add(new Author(22222L, "Vladimir", "Gogovski", "Simply the best!"));
 
-        books.add(new Book("as", "Data Science", "Naucna", 2021));
-        books.add(new Book("ab", "Veb programiranje", "Programiranje", 2020));
-        books.add(new Book("ac", "Bazi na podatoci", "bazi", 2018));
-        books.add(new Book("ad", "Shabloni", "Shabloni", 2019));
-        books.add(new Book("ae", "Robotika", "Robotika", 2022));
+        books.add(new Book("1231212", "Data Science", "Naucna", 2021, authors));
+        books.add(new Book("ab", "Veb programiranje", "Programiranje", 2020, authors));
+        books.add(new Book("ac", "Bazi na podatoci", "bazi", 2018, authors));
+        books.add(new Book("ad", "Shabloni", "Shabloni", 2019, authors));
+        books.add(new Book("ae", "Robotika", "Robotika", 2022, authors));
 
     }
 
