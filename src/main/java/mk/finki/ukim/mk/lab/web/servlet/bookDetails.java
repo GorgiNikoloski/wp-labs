@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 
 import jakarta.servlet.ServletException;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mk.finki.ukim.mk.lab.service.AuthorService;
+import mk.finki.ukim.mk.lab.service.BookService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.web.IWebExchange;
@@ -14,17 +15,15 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-
-@WebServlet(name = "author-servlet", urlPatterns = "/author")
-public class АuthorServlet extends HttpServlet {
+@WebServlet(name = "book-details", urlPatterns = "/author/books")
+public class bookDetails extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private final AuthorService authorService;
+    private final BookService bookService;
 
-
-    public АuthorServlet(SpringTemplateEngine springTemplateEngine, AuthorService authorService) {
+    public bookDetails(SpringTemplateEngine springTemplateEngine, BookService bookService) {
         this.springTemplateEngine = springTemplateEngine;
-        this.authorService = authorService;
+        this.bookService = bookService;
     }
 
     @Override
@@ -33,16 +32,20 @@ public class АuthorServlet extends HttpServlet {
                 .buildExchange(req, resp);
         WebContext context = new WebContext(webExchange);
 
-        context.setVariable("authors", this.authorService.listAuthor());
 
-        String isbn = req.getParameter("isbn");     // nee sigurno
+        context.setVariable("books", bookService.listBooks());
 
-        this.springTemplateEngine.process("authorList.html", context, resp.getWriter());
+        this.springTemplateEngine.process("bookDetails.html", context, resp.getWriter());
 
     }
 
+
+    // ovde trebat kako na bookLIst servlet da prata parametar pa posle da gi isfiltrira.
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/author/books");
+        String isbn = req.getParameter("isbn");
+        this.bookService.findBookByIsbn(isbn);
+        // OVA VO AUTHOR SERVLET
+        resp.sendRedirect("/author/books?isbn=" + isbn);
     }
 }

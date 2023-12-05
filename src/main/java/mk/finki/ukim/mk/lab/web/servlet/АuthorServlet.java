@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 
 import jakarta.servlet.ServletException;
@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import mk.finki.ukim.mk.lab.service.BookService;
+import mk.finki.ukim.mk.lab.service.AuthorService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.web.IWebExchange;
@@ -15,15 +15,16 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 import java.io.IOException;
 
 
-@WebServlet(name = "book-list-servlelt", urlPatterns = "/listBooks")
-public class BookListServlet extends HttpServlet {
+@WebServlet(name = "author-servlet", urlPatterns = "/author")
+public class АuthorServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private final BookService bookService;
+    private final AuthorService authorService;
 
-    public BookListServlet(SpringTemplateEngine springTemplateEngine, BookService bookService) {
+
+    public АuthorServlet(SpringTemplateEngine springTemplateEngine, AuthorService authorService) {
         this.springTemplateEngine = springTemplateEngine;
-        this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     @Override
@@ -32,19 +33,18 @@ public class BookListServlet extends HttpServlet {
                 .buildExchange(req, resp);
         WebContext context = new WebContext(webExchange);
 
-        context.setVariable("books", this.bookService.listBooks());
+        context.setVariable("authors", this.authorService.listAuthor());
 
-        this.springTemplateEngine.process("listBooks.html", context, resp.getWriter());
+        String isbn = req.getParameter("isbn");     // nee sigurno
+
+        this.springTemplateEngine.process("authorList.html", context, resp.getWriter());
 
     }
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String isbn = req.getParameter("bookIsbn");
-//        bookService.findBookByIsbn(isbn);   // nee sigurno
-
-
-        resp.sendRedirect("/author?isbn=" +isbn);
+//        resp.sendRedirect("/author/books");
+        String isbn = req.getParameter("isbn");
+        resp.sendRedirect("/author/books?isbn=" + isbn);
     }
 }

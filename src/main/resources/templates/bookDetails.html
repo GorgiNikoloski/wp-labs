@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,15 +10,33 @@
 <header>
     <h1>Book title</h1>
 </header>
+
+<!--<section>-->
+<!--    <h2>Genre</h2>-->
+<!--    <h2>Year</h2>-->
+<!--    <h2>Authors:</h2>-->
+<!--    <ul>-->
+<!--        <li>Петар Петров</li>-->
+<!--        <li>Јован Јованов</li>-->
+<!--    </ul>-->
+<!--</section>-->
+
 <section>
-    <h2>Genre</h2>
-    <h2>Year</h2>
-    <h2>Authors:</h2>
+
     <ul>
-        <li>Петар Петров</li>
-        <li>Јован Јованов</li>
+        <li th:each="book : ${books}">
+            Genre: <span th:text="${book.title}"></span> <br/>
+            Year: <span th:text="${book.year}"></span> <br/>
+
+<!--            Authors: <span th:text="${book.authors}"></span>-->
+        </li>
     </ul>
+
+
+
 </section>
+
+
 
 
 </body>

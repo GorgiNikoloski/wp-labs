@@ -3,6 +3,7 @@ package mk.finki.ukim.mk.lab.repository;
 import mk.finki.ukim.mk.lab.bootstrap.DataHolder;
 import mk.finki.ukim.mk.lab.model.Author;
 import mk.finki.ukim.mk.lab.model.Book;
+import mk.finki.ukim.mk.lab.model.BookStore;
 import org.springframework.stereotype.Repository;
 
 
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository {
-
 
 //    private List<Book> books;
 //
@@ -46,5 +46,27 @@ public class BookRepository {
         return author;
     }
 
+    public Optional<Book> save(String isbn, String title, String genre, int year, BookStore bookStore, Long BookId) {
+        DataHolder.books.removeIf(i -> i.getId().equals(BookId));
+        Book book = new Book(isbn, title, genre, year, bookStore);
+        DataHolder.books.add(book);
+        return Optional.of(book);
+    }
 
+    //probno
+    public Optional<Book> findByTitle(String title) {
+        return DataHolder.books.stream()
+                .filter(i -> i.getTitle().equals(title))
+                .findFirst();
+    }
+
+    public Optional<Book> findById(Long id) {
+        return DataHolder.books.stream()
+                .filter(i -> i.getId().equals(id))
+                .findFirst();
+    }
+
+    public void deleteById(Long id) {
+        DataHolder.books.removeIf(i -> i.getId().equals(id));
+    }
 }
